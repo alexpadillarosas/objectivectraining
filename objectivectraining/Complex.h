@@ -12,7 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Complex : NSObject <Printing>
-
+//Making a property nonatomic means it can be accessed more quickly, but will cause issues if you try to access it and change it simultaneously.
+//The oposite to nonatomic is atomic, where you can do the opposite, access it and change it.
 @property (nonatomic) double real;
 @property (nonatomic) double imaginary;
 
