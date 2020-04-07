@@ -10,6 +10,11 @@
 #import "Employee.h"
 #import "MathUtility.h"
 #import "Player.h"
+#import "NSString+FormattingOptions.h"
+#import "Account.h"
+#import "Fraction.h"
+#import "Complex.h"
+#import "MyNewClass.h"
 
 void myFunction(void);
 void enumerators(void);
@@ -26,41 +31,57 @@ void fastEnumeration(void);
 void workingWithFiles(void);
 void readingWritingStringsFiles(void);
 void archivingUnarchivingObjects(void);
+void categories(void);
+void classExtensions(void);
+void protocol(void);
+void dynamicTyping(void);
+void fixingErrors(void);
+void exceptionHandling(void);
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        
+        NSLog(@"=================== Creating Variables and Logging =================");
         myFunction();
-        
+        NSLog(@"=================== Using Enums ==================");
         enumerators();
-        
+        NSLog(@"=================== Strings ==================");
         nSStringObjects();
-        
+        NSLog(@"=================== Mutable & Immutable Strings ==================");
         mutableImmutableStrings();
-        
+        NSLog(@"=================== Dates ==================");
         dateObjects();
-        
+        NSLog(@"=================== Working with Objects ==================");
         usingObjects();
-        
+        NSLog(@"=================== Working with methods ==================");
         usingMethodsInObject();
-        
+        NSLog(@"=================== Object initialisers ==================");
         objectInitialisers();
-        
+        NSLog(@"=================== Arrays ==================");
         arraysExample();
-        
+        NSLog(@"=================== Objective-C Arrays ==================");
         arraysObjectiveC();
-        
+        NSLog(@"=================== Dictionary ==================");
         dictionaryObject();
-        
+        NSLog(@"=================== forin ==================");
         fastEnumeration();
-        
+        NSLog(@"=================== Files ==================");
         workingWithFiles();
-        
+        NSLog(@"=================== reading & Writing Files ==================");
         readingWritingStringsFiles();
-        
+        NSLog(@"=================== Storing and Loading files ==================");
         archivingUnarchivingObjects();
-        
-        
+        NSLog(@"=================== Categories ==================");
+        categories();
+        NSLog(@"=================== Extensions ==================");
+        classExtensions();
+        NSLog(@"=================== Dynamic Typing ==================");
+        dynamicTyping();
+        NSLog(@"=================== Protocols ==================");
+        protocol();
+        NSLog(@"=================== Fixing Errors ==================");
+        fixingErrors();
+        NSLog(@"=================== Exception Handling ==================");
+        exceptionHandling();
     }
     
     return 0;
@@ -367,4 +388,170 @@ void archivingUnarchivingObjects(){
         //NO there isnt plist file - so create it
         createAndArchiveObjects(stringFilePath);
     }
+}
+
+void categories(){
+    //remember to import our new class header on top
+    NSString *message = @"The quick brown fox jumped over the lazy dog.";
+    NSLog(@"The result is: %@", [message convertWhitespace]);
+}
+
+void classExtensions(){
+    Account *acc1 = [[Account alloc]init];
+    [acc1 setAccountName:@"Greg"];
+    [acc1 setAccountNumber:1234465];
+    [acc1 deposit:[NSDecimalNumber decimalNumberWithString:@"200.00"]];
+    [acc1 withdraw:[NSDecimalNumber decimalNumberWithString:@"75.22"]];
+    //here is the problem, we are directly reaching to the state of this object balance and changing it
+    //we should not be able to do this, only the methods should be able to change that property.
+    //    acc1.balance = [NSDecimalNumber decimalNumberWithString:@"5999999.00"];
+    
+    NSLog(@"The current balance is: %@", [acc1 balance]);
+}
+
+
+NSMutableArray * createRandomObjects(){
+    NSMutableArray *bunchOfObjects = [[NSMutableArray alloc]init];
+    
+    for (int i=0;  i < 10; i++) {
+        int random = arc4random_uniform(100);
+        if(random % 2 == 0){
+            NSString *s = @"Exciting string object";
+            [bunchOfObjects addObject:s];
+        }else{
+            NSDate *d = [[NSDate alloc]init];
+            [bunchOfObjects addObject:d];
+        }
+    }
+    return bunchOfObjects;
+}
+
+void dynamicTyping(){
+    NSMutableArray *bunchOfObjects = createRandomObjects();
+    
+    for (id currentObject in bunchOfObjects) {
+        //This is fine, but what if we have many different classes, a big list of iskindOfClass
+        //will have to be listed
+        /*
+        if([currentObject isKindOfClass: [NSString class]]){
+            NSLog(@"The object is: %@",[currentObject uppercaseString]);
+        }
+         */
+        //so it's better this way: ask if the object responds to this method ( no matter the class )
+        if([currentObject respondsToSelector:@selector(uppercaseString)]){
+            NSLog(@"The object is: %@",[currentObject uppercaseString]);
+        }else{
+            NSLog(@"The object doesn't respond to that.");
+        }
+    }
+}
+
+void protocol(){
+    //The magic pretty much happens here:
+    Fraction *frac = [[Fraction alloc]initWitNumerator:3 denominator:10];
+    Complex *comp =[[Complex alloc]initWithReal:5 andImaginary:15];
+    id <Printing> printable;
+    
+    //We define our objects (which implement the interface) and a variable id that implements the interface.
+    //The reason this object is of type id is so we can implement multiple interfaces (id is a reserved object type in objective-c meaning any object).
+
+    //Then to switch implementations we just change implementations:
+    //printable = frac;
+    //printable = comp;
+    
+    //printing the fraction
+    printable = frac;
+    NSLog(@"The fraction is: %@", [printable print]);
+    //printing the complex number
+    printable = comp;
+    NSLog(@"The Complex is: %@", [printable print]);
+}
+
+void fixingErrors(){
+    //Issue #1
+    /*
+    NSString myString = [NSString stringWithFormat:@"Here's the first problem!"];
+    NSLog(@"The string is %@", myString);
+     */
+    
+    //Issue #2
+    /*
+     int a = 5, b = 10;
+     if ( a == b ){
+     {
+         NSLog(@"Yes, they're equal")
+     }
+     */
+    
+    //Issue #3 - you need the #import statement for this to work (error: Use of undeclared identifier 'myObj')
+    /*
+    MyNewClass *myObj = [[MyNewClass alloc]init];
+    [myObj someMethod];
+    */
+    
+    //Issue #4 (first: use of undeclared identifier 'myObj', second: Implicit declaration of function 'NSlog' is invalid in .. fix: is NSLog capital L )
+    /*
+    NSlog(@"The new object is: %@", myObj);
+    */
+    
+    //Issue #5 (causes 4 different warnings, we are using single quotes, and these are chars, that's why the warning: character constant too long for its type
+    /*
+    NSLog(@'Hello, world!');
+    */
+    
+    //Issue #6
+    /*
+    NSString *newString = "This is a simple message";
+    NSLog("What's wrong with a simple message likeL %@", newString );
+    */
+    
+    //Issue #7
+    /*
+     int c = 5, d = 10;
+     if( c = d ){
+        NSLog(@"Yes, they're equal");
+     }
+    */
+    
+    //Issue #8
+    
+//     MyNewClass *mySecondObj = [[MyNewClass alloc]init];
+//     NSString *result = [mySecondObj someMethod];
+//     NSLog(@"The result is %@", result);
+    
+    
+    //Issue #9  it gives me a warning not an error, but if I run it, it will end crashing. (Incompatible pointer types initialising 'MyNewClass'
+    /*
+    MyNewClass *myThirdObj = [[NSString alloc]init];
+    NSLog(@"The object is %@", [myThirdObj someMethod]);
+    */
+    
+    //Watch out for these! These are warnings, the problem is: most warnings are not like this 3, unused variables, most warnings are
+    //significant logic errors that will make your program crash.
+    /*
+    NSString *mine = @"Test";
+    int foo = 55;
+    float bar = 5.5;
+    */
+}
+
+void exceptionHandling(){
+    //this won't give me any warnings as the today variable has been assigned to a dynamic type, so this could be a NSString which has the uppercaseString method
+    //but if you ran this you will get an uncaught exception: "unrecognised selector" and will crash.
+    // uncomment this two lines to see the error
+//    id today = [[NSDate alloc] init];
+//    [today uppercaseString];
+    // add a try catch block (the plus button) and place these lines of code inside
+    
+    /*
+    @try {
+        id today = [[NSDate alloc] init];
+        [today uppercaseString];
+    } @catch (NSException *exception) {
+        NSLog(@"The exception was: %@", exception);
+    } @finally {
+        NSLog(@"Finally will always be called.");
+    }
+     */
+    
 }

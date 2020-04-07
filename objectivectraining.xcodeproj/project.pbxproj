@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		FAE54D84241E15DE008FAF22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE54D83241E15DE008FAF22 /* main.m */; };
+		FAEF4F9C243AEE6900B9D2D1 /* NSString+FormattingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF4F9B243AEE6900B9D2D1 /* NSString+FormattingOptions.m */; };
+		FAEF4F9F243B03E000B9D2D1 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF4F9E243B03E000B9D2D1 /* Account.m */; };
+		FAEF4FA9243C04EF00B9D2D1 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF4FA8243C04EF00B9D2D1 /* Fraction.m */; };
+		FAEF4FAC243C0BC800B9D2D1 /* Complex.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF4FAB243C0BC800B9D2D1 /* Complex.m */; };
+		FAEF4FAF243C16F400B9D2D1 /* MyNewClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF4FAE243C16F400B9D2D1 /* MyNewClass.m */; };
 		FAF70F572436D2050002ED35 /* Employee.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF70F562436D2050002ED35 /* Employee.m */; };
 		FAF70F5A2436F61E0002ED35 /* MathUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF70F592436F61E0002ED35 /* MathUtility.m */; };
 		FAF70F5D2437072D0002ED35 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF70F5C2437072D0002ED35 /* Player.m */; };
@@ -28,6 +33,18 @@
 /* Begin PBXFileReference section */
 		FAE54D80241E15DE008FAF22 /* objectivectraining */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = objectivectraining; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE54D83241E15DE008FAF22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAEF4F9A243AEE6900B9D2D1 /* NSString+FormattingOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FormattingOptions.h"; sourceTree = "<group>"; };
+		FAEF4F9B243AEE6900B9D2D1 /* NSString+FormattingOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormattingOptions.m"; sourceTree = "<group>"; };
+		FAEF4F9D243B03E000B9D2D1 /* Account.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		FAEF4F9E243B03E000B9D2D1 /* Account.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		FAEF4FA0243B0B6300B9D2D1 /* Account+PrivateProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Account+PrivateProperty.h"; sourceTree = "<group>"; };
+		FAEF4FA6243C04AB00B9D2D1 /* Printing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Printing.h; sourceTree = "<group>"; };
+		FAEF4FA7243C04EF00B9D2D1 /* Fraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
+		FAEF4FA8243C04EF00B9D2D1 /* Fraction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
+		FAEF4FAA243C0BC800B9D2D1 /* Complex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Complex.h; sourceTree = "<group>"; };
+		FAEF4FAB243C0BC800B9D2D1 /* Complex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Complex.m; sourceTree = "<group>"; };
+		FAEF4FAD243C16F400B9D2D1 /* MyNewClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNewClass.h; sourceTree = "<group>"; };
+		FAEF4FAE243C16F400B9D2D1 /* MyNewClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyNewClass.m; sourceTree = "<group>"; };
 		FAF70F552436D2050002ED35 /* Employee.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Employee.h; sourceTree = "<group>"; };
 		FAF70F562436D2050002ED35 /* Employee.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Employee.m; sourceTree = "<group>"; };
 		FAF70F582436F61E0002ED35 /* MathUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathUtility.h; sourceTree = "<group>"; };
@@ -67,12 +84,24 @@
 			isa = PBXGroup;
 			children = (
 				FAE54D83241E15DE008FAF22 /* main.m */,
+				FAEF4FA0243B0B6300B9D2D1 /* Account+PrivateProperty.h */,
 				FAF70F552436D2050002ED35 /* Employee.h */,
 				FAF70F562436D2050002ED35 /* Employee.m */,
 				FAF70F582436F61E0002ED35 /* MathUtility.h */,
 				FAF70F592436F61E0002ED35 /* MathUtility.m */,
 				FAF70F5B2437072D0002ED35 /* Player.h */,
 				FAF70F5C2437072D0002ED35 /* Player.m */,
+				FAEF4F9A243AEE6900B9D2D1 /* NSString+FormattingOptions.h */,
+				FAEF4F9B243AEE6900B9D2D1 /* NSString+FormattingOptions.m */,
+				FAEF4F9D243B03E000B9D2D1 /* Account.h */,
+				FAEF4F9E243B03E000B9D2D1 /* Account.m */,
+				FAEF4FA6243C04AB00B9D2D1 /* Printing.h */,
+				FAEF4FA7243C04EF00B9D2D1 /* Fraction.h */,
+				FAEF4FA8243C04EF00B9D2D1 /* Fraction.m */,
+				FAEF4FAA243C0BC800B9D2D1 /* Complex.h */,
+				FAEF4FAB243C0BC800B9D2D1 /* Complex.m */,
+				FAEF4FAD243C16F400B9D2D1 /* MyNewClass.h */,
+				FAEF4FAE243C16F400B9D2D1 /* MyNewClass.m */,
 			);
 			path = objectivectraining;
 			sourceTree = "<group>";
@@ -134,9 +163,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEF4F9C243AEE6900B9D2D1 /* NSString+FormattingOptions.m in Sources */,
 				FAF70F5D2437072D0002ED35 /* Player.m in Sources */,
 				FAF70F5A2436F61E0002ED35 /* MathUtility.m in Sources */,
+				FAEF4FA9243C04EF00B9D2D1 /* Fraction.m in Sources */,
+				FAEF4F9F243B03E000B9D2D1 /* Account.m in Sources */,
 				FAE54D84241E15DE008FAF22 /* main.m in Sources */,
+				FAEF4FAC243C0BC800B9D2D1 /* Complex.m in Sources */,
+				FAEF4FAF243C16F400B9D2D1 /* MyNewClass.m in Sources */,
 				FAF70F572436D2050002ED35 /* Employee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
