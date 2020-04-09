@@ -127,7 +127,8 @@ void mutableImmutableStrings(){
     NSString * str1 = @"Hello World";
     NSString * str2 = str1;
 
-    // "Replace" the second string
+    // "Replace" the second string: in this step the compiler will reserve a portion of memory for "Hello ikilimnik" and make the pointer str2
+    // to point to the newly created string "Hello ikilimnik", that's why these strings (NSString) are Immutable
     str2 = @"Hello ikilimnik";
 
     // And list their current values
@@ -138,7 +139,8 @@ void mutableImmutableStrings(){
     NSMutableString * str11 = [NSMutableString stringWithString:@"Hello World"];
     NSMutableString * str22 = str11;
 
-    // "Replace" the second string
+    // "Replace" the second string: by doing it, the compiler does not reserve a portion of memory for "Hello ikilimnik", instead it will
+    // modify the pointed memory area content with the new value "Hello ikilimnik", this is why these are Mutable Strings
     [str22 setString:@"Hello ikilimnik"];
 
     // And list their current values
@@ -146,15 +148,15 @@ void mutableImmutableStrings(){
 }
 
 void dateObjects() {
-    NSDate *today = [NSDate date];   //here date is an class method and it' represented with the + sign
-    
+    NSDate *today = [NSDate date];   //here date is a class method and it's represented with the "+" sign, "-" symbol represents instance methods
+    //remember class methods are available for the class, not for the instance. Class : NSDate, instance : today
+
     NSLog(@"The new NSDate object is : %@", today);
 }
 
 void usingObjects(){
     
     Employee *alex = [[Employee alloc] init];
-    
     
     [alex someMethod];
     [alex setName:@"Alexander"];
