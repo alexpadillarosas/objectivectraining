@@ -6,7 +6,10 @@
 //  Copyright © 2020 alex. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+//The 2 following lines are valid ways to import a module
+//#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "Printing.h"
 
 NS_ASSUME_NONNULL_BEGIN
