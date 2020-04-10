@@ -119,6 +119,29 @@ void nSStringObjects() {
     NSString *uppercaseMessage = [message uppercaseString];
     
     NSLog(@"The NSString object is %@, and %@", message, uppercaseMessage);
+    NSString *st1 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
+    NSString *st2 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
+    
+    //here you are comparing the pointers
+    if(st1 == st2){
+        NSLog(@"These two pointers point to the same memory address");
+    }else{
+        NSLog(@"These 2 pointers point to different memory addresses");
+    }
+    //to compare the contents use isEqualToString
+    if([st1 isEqualToString: st2]){
+        NSLog(@"The content of these two pointers are the same");
+    }else{
+        NSLog(@"The content of these two pointers are different");
+    }
+    //declaring a constant
+    NSString *const MY_CONSTANT = @"CRASH";
+    
+    NSString *myVar = MY_CONSTANT;
+    NSLog(@"value of myVar %@", myVar);
+//  As myVar is a constant the following is not allowed
+//    MY_CONSTANT = myVar;
+    
 }
 
 void mutableImmutableStrings(){
