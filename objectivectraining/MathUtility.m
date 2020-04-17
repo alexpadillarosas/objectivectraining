@@ -9,6 +9,7 @@
 #import "MathUtility.h"
 
 @implementation MathUtility
+
 -(int)timesTen:(int)number{
     NSLog(@"numer is: %i", number);
     return number * 10;

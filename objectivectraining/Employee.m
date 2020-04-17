@@ -11,7 +11,7 @@
 @implementation Employee
 
 //this is an instance variable, it's global to all instant methods, and as it has been defined in the implementation of the class,
-//it can be accessed from outside.
+//it can't be accessed from outside.
 int years;
 
 //here we need to implement the method
