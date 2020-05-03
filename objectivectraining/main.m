@@ -33,7 +33,7 @@ void readingWritingStringsFiles(void);
 void archivingUnarchivingObjects(void);
 void categories(void);
 void classExtensions(void);
-void protocol(void);
+void protocols(void);
 void dynamicTyping(void);
 void fixingErrors(void);
 void exceptionHandling(void);
@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"=================== Dynamic Typing ==================");
         dynamicTyping();
         NSLog(@"=================== Protocols ==================");
-        protocol();
+        protocols();
         NSLog(@"=================== Fixing Errors ==================");
         fixingErrors();
         NSLog(@"=================== Exception Handling ==================");
@@ -260,7 +260,7 @@ void dictionaryObject(){
                                                 @"Western Australia", @"WA",
                                                 @"Queensland",@"QLD",
                                    nil];
-    [mutableStates setObject:@"Northern Territory" forKey:@"NT"];
+    [mutableStates setObject:@"Tasmania" forKey:@"TA"];
     NSLog(@"last element added %@", mutableStates[@"NT"]);
     
     //another way to initialise NSMutableDictionary
@@ -471,7 +471,9 @@ void dynamicTyping(){
     }
 }
 
-void protocol(){
+void protocols(){
+    //REMEMBER: protocols are declared in the .h file enclosed between < >
+    //therefore Fraction.h will have the specified protocols it will implement
     //The magic pretty much happens here:
     Fraction *frac = [[Fraction alloc]initWitNumerator:3 denominator:10];
     Complex *comp =[[Complex alloc]initWithReal:5 andImaginary:15];

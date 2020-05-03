@@ -132,7 +132,7 @@
 		FAE54D78241E15DE008FAF22 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = alex;
 				TargetAttributes = {
 					FAE54D7F241E15DE008FAF22 = {
@@ -290,6 +290,7 @@
 		FAE54D88241E15DE008FAF22 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -298,6 +299,7 @@
 		FAE54D89241E15DE008FAF22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
