@@ -13,3 +13,5 @@ This are examples for the objective-c Foundation framework, a collection of prew
   - Reading and writing to files
   - Understanding inheritance and NSObject
   - Using Categories, Protocols, and Class Extensions
+  
+  run all examples.
