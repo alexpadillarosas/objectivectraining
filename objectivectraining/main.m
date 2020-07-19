@@ -92,11 +92,14 @@ void myFunction() {
     float b = 2.0;
     
     NSLog(@"Hello, World!");
-    NSLog(@"Value of a is %i and value of b is %f and the multiplication is %f", a, b, a*b);
+    NSLog(@"The value of a is %i and value of b is %f and the multiplication is %f", a, b, a*b);
 }
 
 void enumerators() {
-    
+    /*
+     if no values are specified for the enumerator elements, the compiler will assigned values starting at 0
+     Do not forget the semicolon at the end of the enum declaration as we are declarating a variable.
+     */
     enum seatPreference { window, aisle, middle };
     enum decades {
         babyBoomer = 1964, generationX = 1979, xennials = 1985, millenials = 1994, genZ = 2012, genAlpha = 2023
