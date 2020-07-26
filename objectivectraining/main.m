@@ -17,6 +17,8 @@
 #import "MyNewClass.h"
 
 void myFunction(void);
+void flowControl(void);
+void operators(void);
 void enumerators(void);
 void nSStringObjects(void);
 void mutableImmutableStrings(void);
@@ -42,6 +44,10 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSLog(@"=================== Creating Variables and Logging =================");
         myFunction();
+        NSLog(@"=================== Flow Control ==================");
+        flowControl();
+        NSLog(@"=================== Using Operators ==================");
+        operators();
         NSLog(@"=================== Using Enums ==================");
         enumerators();
         NSLog(@"=================== Strings ==================");
@@ -67,9 +73,9 @@ int main(int argc, const char * argv[]) {
         NSLog(@"=================== Files ==================");
         workingWithFiles();
         NSLog(@"=================== reading & Writing Files ==================");
-        readingWritingStringsFiles();
+//        readingWritingStringsFiles();
         NSLog(@"=================== Storing and Loading files ==================");
-        archivingUnarchivingObjects();
+//        archivingUnarchivingObjects();
         NSLog(@"=================== Categories ==================");
         categories();
         NSLog(@"=================== Extensions ==================");
@@ -93,6 +99,64 @@ void myFunction() {
     
     NSLog(@"Hello, World!");
     NSLog(@"The value of a is %i and value of b is %f and the multiplication is %f", a, b, a*b);
+}
+
+void flowControl(){
+    BOOL isStormComing = NO;
+    
+    if(isStormComing){
+        NSLog(@"Storm is coming");
+    }else{
+        NSLog(@"Storm is not coming");
+    }
+    
+    int stormCategory = 4;
+    
+    if (stormCategory ==1) {
+        NSLog(@"Time to get indoors");
+    }
+    
+    if (stormCategory == 2) {
+        NSLog(@"Extensive Damage - run and hide");
+    }
+    
+    if (stormCategory == 3) {
+        NSLog(@"Devasting Damage - oh no!");
+    }
+    
+    if (stormCategory == 4 || stormCategory == 5) {
+        NSLog(@"Catastrophic Damage - game over!");
+    }
+    
+    if (stormCategory > 5) {
+        NSLog(@"Readings are off the scale. We haven't encountered this phenomenon before");
+    }
+    
+    
+    switch (stormCategory) {
+        case 1:
+            NSLog(@"Time to get indoors");
+            break;
+        case 2:
+            NSLog(@"Extensive Damage - run and hide");
+            break;
+        case 3:
+            NSLog(@"Devasting Damage - oh no!");
+            break;
+        case 4:
+        case 5:
+            NSLog(@"Catastrophic Damage - game over!");
+            break;
+        default:
+            NSLog(@"Readings are off the scale. We haven't encountered this phenomenon before");
+            break;
+    }
+    
+    
+}
+
+void operators(){
+    
 }
 
 void enumerators() {
