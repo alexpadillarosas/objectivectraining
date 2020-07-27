@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Employee.h"
 #import "MathUtility.h"
+
 #import "Player.h"
 #import "NSString+FormattingOptions.h"
 #import "Account.h"
@@ -16,7 +17,7 @@
 #import "Complex.h"
 #import "MyNewClass.h"
 
-void myFunction(void);
+void datatypes(void);
 void flowControl(void);
 void operators(void);
 void enumerators(void);
@@ -43,11 +44,11 @@ void exceptionHandling(void);
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSLog(@"=================== Creating Variables and Logging =================");
-        myFunction();
+        datatypes();
+        NSLog(@"=================== Operators ==================");
+        operators();
         NSLog(@"=================== Flow Control ==================");
         flowControl();
-        NSLog(@"=================== Using Operators ==================");
-        operators();
         NSLog(@"=================== Using Enums ==================");
         enumerators();
         NSLog(@"=================== Strings ==================");
@@ -93,12 +94,62 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-void myFunction() {
+void datatypes() {
     int a = 100;
-    float b = 2.0;
+    double b = 2.0;
+    char c1 = 'A';
+    char c2 = 'b';
+    long long int myLongLongInt = 50000000000000;
+    unsigned int myUnsignedInteger = 100;
     
     NSLog(@"Hello, World!");
     NSLog(@"The value of a is %i and value of b is %f and the multiplication is %f", a, b, a*b);
+    NSLog(@"printing characters c1: %c, and c2: %c", c1, c2);
+    NSLog(@"My long long int: %lli", myLongLongInt);
+    NSLog(@"My unsigned integer is: %u", myUnsignedInteger);
+    
+}
+
+void operators(){
+    //operators precedence
+    int result = 20+10 / 5-3 ;
+    NSLog(@"result: %i", result);
+    
+    int a = 10;
+    int b = 3;
+    double result2  = a / b;
+    NSLog(@"result: %f", result2);
+    
+    //Modulus
+    int year = 2003;
+    int remainder = year % 4;
+    NSLog(@"remainder: %i", remainder);
+        
+    //Increment and decrement
+    a = a + 1;
+    a += 1;
+    
+    //Prefix and Postfix
+    int x = 4;
+    NSLog(@"x++: %i", x++);
+    NSLog(@"++x: %i", ++x);
+    
+    int y = 6;
+    NSLog(@"y--: %i", y--);
+    NSLog(@"--y: %i", --y);
+    
+    int w;
+    w = y--;
+    NSLog(@"w: %i, and y: %i", w, y);
+    
+    //Ternary Operator
+    //  Condition ? true : false
+    
+    int p1Score = 10;
+    int p2Score = 20;
+    //without a ternary operator you will have to write a if-else statement.
+    int highScore = p1Score > p2Score ? p1Score : p2Score;
+    NSLog(@"highScore: %i", highScore);
 }
 
 void flowControl(){
@@ -132,7 +183,7 @@ void flowControl(){
         NSLog(@"Readings are off the scale. We haven't encountered this phenomenon before");
     }
     
-    
+    //Switch
     switch (stormCategory) {
         case 1:
             NSLog(@"Time to get indoors");
@@ -152,11 +203,47 @@ void flowControl(){
             break;
     }
     
+    //Loops
+    int a = 1;
     
-}
+    if(a < 10){
+        NSLog(@"The value of a is %i", a);
+    }
+    
+    // to turn this into a loop I need 3 things:
+    // an index ( a in this case )
+    // check the condition, it must use the index
+    // alter the index, to make the condition fail at some point.
+    while (a < 10) {
+        NSLog(@"The value of a is %i", a);
+        //do stuff...
+        a++; //increment a to check the value of a, otherwise we will have an endless loop
+    }
+    
+    int b = 0;
+    do{
+        NSLog(@"The value of b is %i", b);
+        b++;
+    }while( b < 10);
+    
+    for (int i = 1; i < 10; i++) {
+        NSLog(@"The value of i is %i", i);
+    }
+    
+    // break and continue
+    NSLog(@"=====Break & Continue====");
+    for (int i = 1; i < 10; i++) {
+        if(i == 5){
+            continue;
+        }
+        if(i == 8){
+            break;
+        }
+        NSLog(@"The value of i is %i", i);
+    }
+    
 
-void operators(){
-    
+
 }
 
 void enumerators() {
