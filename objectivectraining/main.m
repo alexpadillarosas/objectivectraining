@@ -21,6 +21,7 @@ void datatypes(void);
 void flowControl(void);
 void operators(void);
 void enumerators(void);
+void pointers(void);
 void nSStringObjects(void);
 void mutableImmutableStrings(void);
 void dateObjects(void);
@@ -51,6 +52,8 @@ int main(int argc, const char * argv[]) {
         flowControl();
         NSLog(@"=================== Using Enums ==================");
         enumerators();
+        NSLog(@"=================== Pointers ==================");
+        pointers();
         NSLog(@"=================== Strings ==================");
         nSStringObjects();
         NSLog(@"=================== Mutable & Immutable Strings ==================");
@@ -268,8 +271,27 @@ void enumerators() {
     NSLog(@"Bob's generation ended in %i", bobGeneration);
 }
 
+//declaring pointers to x
+void printMyMessage(NSString* x){
+    NSLog(@"Secret Message: %@", x);
+}
+
+void pointers(){
+    
+    //declaring variables, pay attention to the asterisk possition, is irrelevant!
+    NSString  *message = @"Hello";
+    NSString*  anotherMessage = @"Beautiful";
+    NSString * lastMessage = @"People";
+    
+    //passing pointers to methods
+    printMyMessage(message);
+    
+}
+
 void nSStringObjects() {
-    NSString *message = @"Hello";
+
+    NSString  *message = @"Hello";
+    
     NSString *uppercaseMessage = [message uppercaseString];
     
     NSLog(@"The NSString object is %@, and %@", message, uppercaseMessage);
