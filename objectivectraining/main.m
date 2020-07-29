@@ -271,20 +271,21 @@ void enumerators() {
     NSLog(@"Bob's generation ended in %i", bobGeneration);
 }
 
-//declaring pointers to x
-void printMyMessage(NSString* x){
+//function with parameter which is a pointer to NSString, remember for objects we pass the pointer instead of the actual object or a copy of it.
+void printMessage(NSString* x, int y){
     NSLog(@"Secret Message: %@", x);
+    NSLog(@"Secret number: %i", y);
 }
 
 void pointers(){
-    
+    int age = 50;
     //declaring variables, pay attention to the asterisk possition, is irrelevant!
     NSString  *message = @"Hello";
     NSString*  anotherMessage = @"Beautiful";
     NSString * lastMessage = @"People";
     
-    //passing pointers to methods
-    printMyMessage(message);
+    //passing pointers to functions, this is different to calling methods of a class, we will see that later
+    printMessage(message, age);
     
 }
 
