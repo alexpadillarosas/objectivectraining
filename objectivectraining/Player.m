@@ -17,7 +17,7 @@
 }
 
 - (instancetype)initWithInteger: (int) initialScore
-{
+{   //use the framework to insert this code, click the plus sign button on top.
     self = [super init];
     if (self) {
         _score = initialScore;
