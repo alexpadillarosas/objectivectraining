@@ -26,7 +26,7 @@ void callingMethods(void);
 void nSStringObjects(void);
 void mutableImmutableStrings(void);
 void memoryManagement(void);
-void usingObjects(void);
+void creatingOurClassesAndUsingObjectsFromIt(void);
 void usingMethodsInObject(void);
 void objectInitialisers(void);
 void arraysExample(void);
@@ -63,8 +63,8 @@ int main(int argc, const char * argv[]) {
         mutableImmutableStrings();
         NSLog(@"=================== Memory Management ==================");
         memoryManagement();
-        NSLog(@"=================== Using Objects ==================");
-        usingObjects();
+        NSLog(@"=================== Using Objects From our Own Classes ==================");
+        creatingOurClassesAndUsingObjectsFromIt();
         NSLog(@"=================== Using methods in an object ==================");
         usingMethodsInObject();
         NSLog(@"=================== Object initialisers ==================");
@@ -418,7 +418,7 @@ void memoryManagement() {
     
 }
 
-void usingObjects(){
+void creatingOurClassesAndUsingObjectsFromIt(){
     
     Employee *alex = [[Employee alloc] init];
     
