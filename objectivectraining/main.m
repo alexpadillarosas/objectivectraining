@@ -25,7 +25,7 @@ void pointers(void);
 void callingMethods(void);
 void nSStringObjects(void);
 void mutableImmutableStrings(void);
-void dateObjects(void);
+void memoryManagement(void);
 void usingObjects(void);
 void usingMethodsInObject(void);
 void objectInitialisers(void);
@@ -61,8 +61,8 @@ int main(int argc, const char * argv[]) {
         nSStringObjects();
         NSLog(@"=================== Mutable & Immutable Strings ==================");
         mutableImmutableStrings();
-        NSLog(@"=================== Dates ==================");
-        dateObjects();
+        NSLog(@"=================== Memory Management ==================");
+        memoryManagement();
         NSLog(@"=================== Using Objects ==================");
         usingObjects();
         NSLog(@"=================== Using methods in an object ==================");
@@ -387,11 +387,35 @@ void instanceAndClassMethods(){
      */
 }
 
-void dateObjects() {
+void memoryManagement() {
+
+    //using regular alloc/init
+    NSDate *myDate = [ [NSDate alloc] init];
+    //using alloc with specialised init
+    NSDate *nextDate = [ [NSDate alloc] initWithTimeIntervalSince1970:23234544];
+    
+    /**
+            The following 2 methods do the equivalent to alloc + init
+     */
+    //using convenience CLASS METHOD, it will be identical to calling [ [NSDate alloc] init]
     NSDate *today = [NSDate date];   //here date is a class method and it's represented with the "+" sign, "-" symbol represents instance methods
     //remember class methods are available for the class, not for the instance. Class : NSDate, instance : today
+    //using specialised convenience class method (we don't need alloc)
+    NSDate* yetAnotherDate = [NSDate dateWithTimeIntervalSince1970:23234544];
 
-    NSLog(@"The new NSDate object is : %@", today);
+    NSLog(@"The dates are: \n %@, \n %@, \n %@, \n %@ ", myDate, nextDate, today, yetAnotherDate);
+    
+    
+    //NSString using shorthand literal syntax: we don't use alloc and init, just the @ sign and double quotes.
+    NSString *message = @"Hello";
+    //using alloc/init usually is not used, because you end up with nothing in the string, insetead we might use the next declaration
+    NSString* example = [ [NSString alloc] init];
+    
+    //using alloc with specialised init
+    NSString *nextMessage = [[NSString alloc] initWithFormat:@"the world is: %@", message];
+    //using convenience class method (we don't need alloc)
+    NSString *anotherMessage = [NSString stringWithFormat:@"The world is: %@", message];
+    
 }
 
 void usingObjects(){

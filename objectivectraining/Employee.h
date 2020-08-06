@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSDate *hireDate;
 @property int employeeNumber;
 
-
+//here someMethod is an instance method and it's represented with the "-" sign, "+" symbol represents class methods
+//remember class methods are available for the class, not for the instance. Class : NSDate, instance : today
 -(void) someMethod;
 
 @end
