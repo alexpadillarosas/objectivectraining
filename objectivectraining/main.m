@@ -22,6 +22,7 @@ void flowControl(void);
 void operators(void);
 void enumerators(void);
 void pointers(void);
+void callingMethods(void);
 void nSStringObjects(void);
 void mutableImmutableStrings(void);
 void dateObjects(void);
@@ -54,15 +55,17 @@ int main(int argc, const char * argv[]) {
         enumerators();
         NSLog(@"=================== Pointers ==================");
         pointers();
+        NSLog(@"=================== Calling Methods ==================");
+        callingMethods();
         NSLog(@"=================== Strings ==================");
         nSStringObjects();
         NSLog(@"=================== Mutable & Immutable Strings ==================");
         mutableImmutableStrings();
         NSLog(@"=================== Dates ==================");
         dateObjects();
-        NSLog(@"=================== Working with Objects ==================");
+        NSLog(@"=================== Using Objects ==================");
         usingObjects();
-        NSLog(@"=================== Working with methods ==================");
+        NSLog(@"=================== Using methods in an object ==================");
         usingMethodsInObject();
         NSLog(@"=================== Object initialisers ==================");
         objectInitialisers();
@@ -272,9 +275,14 @@ void enumerators() {
 }
 
 //function with parameter which is a pointer to NSString, remember for objects we pass the pointer instead of the actual object or a copy of it.
-void printMessage(NSString* x, int y){
+void printVariables(NSString* x, int y){
     NSLog(@"Secret Message: %@", x);
     NSLog(@"Secret number: %i", y);
+}
+
+void happyBirthday(int y){
+    ++y;
+    NSLog(@"You have become older %i",y);
 }
 
 void pointers(){
@@ -285,17 +293,34 @@ void pointers(){
     NSString * lastMessage = @"People";
     
     //passing pointers to functions, this is different to calling methods of a class, we will see that later
-    printMessage(message, age);
+    printVariables(message, age);
+    happyBirthday(age);
+    printVariables(message, age);
+    
+    /* What has happened to age? why it did not change?
+       The answer is because primitive variables are passed into the function as a copy of that parameter, it is not the original variable.
+       what we've changed is the copied variable.
+     */
     
 }
 
-void nSStringObjects() {
-
+void callingMethods(){
     NSString  *message = @"Hello";
     
     NSString *uppercaseMessage = [message uppercaseString];
+    NSLog(@"The NSString object are %@, and %@", message, uppercaseMessage);
+    // with multiple arguments:
+    // the length defines the final number of caracter of our new NSStrin
+    NSString* paddedMessage = [message stringByPaddingToLength: 10 withString: @"X" startingAtIndex: 0];
+    NSLog(@"my paddedMessage: %@", paddedMessage);
+}
+
+void nSStringObjects() {
     
-    NSLog(@"The NSString object is %@, and %@", message, uppercaseMessage);
+    /* stringWithFormat:
+       Returns a string created by using a given format string as a template into which the remaining argument values are substituted.
+       to see this information, press option and hover the method, you will see a question mark appearing over it, click on it.
+     */
     NSString *st1 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
     NSString *st2 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
     
@@ -345,6 +370,21 @@ void mutableImmutableStrings(){
 
     // And list their current values
     NSLog(@"str1 = %@, str2 = %@", str11, str22);
+}
+
+void instanceAndClassMethods(){
+    
+    NSString *message = @"Hello";
+    //here we are calling a method from an object called message.
+    NSString *lower = [message lowercaseString];
+    NSLog(@"value of message lower case %@", lower);
+    
+    NSDate *today = [NSDate date];
+    NSLog(@"today is %@today", today);
+    /*
+     Wait, are we calling a method from a class NSDate?
+     Yes, what happens here is that date is a class method, whereas lowercaseString is an instance method.
+     */
 }
 
 void dateObjects() {
