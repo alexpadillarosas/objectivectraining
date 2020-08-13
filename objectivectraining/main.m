@@ -533,6 +533,7 @@ void workingWithFiles(){
     //provide a shared instance
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
+    //Here change to the path of any file you have in your computer
     NSString *simplePath = @"/Users/alex/Downloads/bomb.xml";
     
     if([fileManager fileExistsAtPath:simplePath]){
@@ -565,6 +566,7 @@ void readingWritingStringsFiles(){
     NSURL *documentDir = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
     
     //create a full path, don't forget to place a text file called sample.txt in the computer
+    //once you have done it, uncomment the function readingWritingStringsFiles so it will be executed.
     NSURL *full = [documentDir URLByAppendingPathComponent:@"sample.txt"];
     //load the string
     NSString *content = [[NSString alloc] initWithContentsOfURL:full encoding:NSUTF8StringEncoding error:nil];
@@ -733,6 +735,13 @@ void protocols(){
     //printing the complex number
     printable = comp;
     NSLog(@"The Complex is: %@", [printable print]);
+    /*
+     what for could a protocol be helpful?
+     We can create an array of objects, and put any type of object there that implements a protocol.
+     as all implement the same protocol
+     you can in a loop over the array, and call the method declared in the protocol and should work as expected.
+     
+    */
 }
 
 void fixingErrors(){
