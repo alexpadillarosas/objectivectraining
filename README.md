@@ -1,5 +1,5 @@
 # Objective-c Training
-This are examples for the objective-c Foundation framework, a collection of prewritten code that makes the coding process easier; shows you how to design and build your own classes; and provides memory management techniques.
+This are examples for the objective-c Foundation framework, a collection of prewritten code that makes the coding process easier; It shows you how to design and build your own classes; and provides memory management techniques.
 
 ## Learning Objectives
   - Understanding the structure of an Objective-C program
