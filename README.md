@@ -23,4 +23,5 @@ This are examples for the objective-c Foundation framework, a collection of prew
   - https://eezytutorials.com/
   - https://www.techotopia.com/index.php/Objective-C_2.0_Essentials
   - https://essential-ios.programming-books.io/
-
+  - https://nshipster.com/
+  
