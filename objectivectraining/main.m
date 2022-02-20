@@ -32,6 +32,7 @@ void objectInitialisers(void);
 void arraysExample(void);
 void arraysObjectiveC(void);
 void dictionaryObject(void);
+void jsonManipulation(void);
 void fastEnumeration(void);
 void workingWithFiles(void);
 void readingWritingStringsFiles(void);
@@ -73,8 +74,22 @@ int main(int argc, const char * argv[]) {
         arraysExample();
         NSLog(@"=================== Objective-C Arrays ==================");
         arraysObjectiveC();
+        NSLog(@"=================== Dynamic Typing ==================");
+        dynamicTyping();
         NSLog(@"=================== Dictionary ==================");
         dictionaryObject();
+        NSLog(@"=================== Json ==================");
+        jsonManipulation();
+        NSLog(@"=================== Categories ==================");
+        categories();
+        NSLog(@"=================== Extensions ==================");
+        classExtensions();
+        NSLog(@"=================== Protocols ==================");
+        protocols();
+        NSLog(@"=================== Fixing Errors ==================");
+        fixingErrors();
+        NSLog(@"=================== Exception Handling ==================");
+        exceptionHandling();
         NSLog(@"=================== forin ==================");
         fastEnumeration();
         NSLog(@"=================== Files ==================");
@@ -83,18 +98,8 @@ int main(int argc, const char * argv[]) {
 //        readingWritingStringsFiles();
         NSLog(@"=================== Storing and Loading files ==================");
 //        archivingUnarchivingObjects();
-        NSLog(@"=================== Categories ==================");
-        categories();
-        NSLog(@"=================== Extensions ==================");
-        classExtensions();
-        NSLog(@"=================== Dynamic Typing ==================");
-        dynamicTyping();
-        NSLog(@"=================== Protocols ==================");
-        protocols();
-        NSLog(@"=================== Fixing Errors ==================");
-        fixingErrors();
-        NSLog(@"=================== Exception Handling ==================");
-        exceptionHandling();
+        
+        
     }
     
     return 0;
@@ -324,6 +329,11 @@ void nSStringObjects() {
     NSString *st1 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
     NSString *st2 = [NSString stringWithFormat:@"%@, %@", @"Hi", @"Five" ];
     
+//  since NSString is immutable there's no problem with saving the memory space and pointing it to the same @"Hello" string that is allocated in the data segment of your executable.
+//    NSString *st1 = @"Hello";
+//    NSString *st2 = @"Hello";
+//    the comparison st1 == st2 will be true
+    
     //here you are comparing the pointers
     if(st1 == st2){
         NSLog(@"These two pointers point to the same memory address");
@@ -352,9 +362,9 @@ void mutableImmutableStrings(){
     NSString * str1 = @"Hello World";
     NSString * str2 = str1;
 
-    // "Replace" the second string: in this step the compiler will reserve a portion of memory for "Hello ikilimnik" and make the pointer str2
+    // "Replace" the second string: in this step the compiler will reserve a portion of memory for "Hello Kraken" and make the pointer str2
     // to point to the newly created string "Hello ikilimnik", that's why these strings (NSString) are Immutable
-    str2 = @"Hello ikilimnik";
+    str2 = @"Hello Kraken";
 
     // And list their current values
     NSLog(@"str1 = %@, str2 = %@", str1, str2);
@@ -366,7 +376,7 @@ void mutableImmutableStrings(){
 
     // "Replace" the second string: by doing it, the compiler does not reserve a portion of memory for "Hello ikilimnik", instead it will
     // modify the pointed memory area content with the new value "Hello ikilimnik", this is why these are Mutable Strings
-    [str22 setString:@"Hello ikilimnik"];
+    [str22 setString:@"Hello Kraken"];
 
     // And list their current values
     NSLog(@"str1 = %@, str2 = %@", str11, str22);
@@ -408,7 +418,7 @@ void memoryManagement() {
     
     //NSString using shorthand literal syntax: we don't use alloc and init, just the @ sign and double quotes.
     NSString *message = @"Hello";
-    //using alloc/init usually is not used, because you end up with nothing in the string, insetead we might use the next declaration
+    //using alloc/init usually is not used, because you end up with nothing in the string, instead we might use the next declaration
     NSString* example = [ [NSString alloc] init];
     
     //using alloc with specialised init
@@ -458,7 +468,7 @@ void arraysExample(){
     int otherValues[5] = { 10, 100, 1000, 10000, 100000 };//we can remove the numer 5
     NSLog(@"the value of the third element is %i", otherValues[2]);
     
-    NSString *myStringArray[5] = { @"first", @"second", @"third", @"fourth", @"fifth" };
+    NSString* myStringArray[5] = { @"first", @"second", @"third", @"fourth", @"fifth" };
     NSLog(@"the third string element is %@", myStringArray[2]);
 }
 
@@ -472,9 +482,12 @@ void arraysObjectiveC(){
     NSLog(@"the third object is %@", myArray[2]);
     //adding another type of element to the array
     NSDate *myDate = [[NSDate alloc]init];
-    NSArray *mySecondArray = [[NSArray alloc]initWithObjects:@"one", @"two", @"three", myDate, nil];
+    NSArray *mySecondArray = [[NSArray alloc]initWithObjects:@"one", @"two", @"three", myDate, @39, nil];
     NSLog(@"the fouth object is %@", mySecondArray[3]);
-
+    
+    unsigned long value = [mySecondArray indexOfObject:@39];
+    NSLog(@"Element found in the array at index number : %tu", value);
+    
     NSMutableArray *myMutableArray = [[NSMutableArray alloc]initWithObjects:@"aaa",@"bbb", @"ccc", @"ddd", nil];
     //add an element at the end
     [myMutableArray addObject:@"XXX"];
@@ -483,6 +496,51 @@ void arraysObjectiveC(){
     NSLog(@"the first element is %@",myMutableArray[0]);
     //print the added element
     NSLog(@"the first element is %@",myMutableArray[3]);
+    
+
+}
+
+NSMutableArray * createRandomObjects(){
+    NSMutableArray *bunchOfObjects = [[NSMutableArray alloc]init];
+    
+    for (int i=0;  i < 10; i++) {
+        int random = arc4random_uniform(100);
+        if(random % 2 == 0){
+            NSString *s = @"Exciting string object";
+            [bunchOfObjects addObject:s];
+        }else{
+            NSDate *d = [[NSDate alloc]init];
+            [bunchOfObjects addObject:d];
+        }
+    }
+    return bunchOfObjects;
+}
+
+void dynamicTyping(){
+    //id is a pointer to an instance of a class.
+    /*
+        Let's say we have a bunch of objects stored in an Array, but these objects are not necessarily built from the same class / datatype
+        What if we have for example NSDates and NSString there, and your task will be to to uppercase all strings in the Array.
+        We can of course use isKindOfClass to check if the object we get from the array is an NSString, but what if we have many different classess in the collection?
+        a big list of iskindOfClass will have to be listed
+     */
+    NSMutableArray *bunchOfObjects = createRandomObjects();
+    // So here
+    for (id currentObject in bunchOfObjects) {
+        //This is fine, but what if we have many different classes, a big list of iskindOfClass
+        //will have to be listed
+        /*
+        if([currentObject isKindOfClass: [NSString class]]){
+            NSLog(@"The object is: %@",[currentObject uppercaseString]);
+        }
+         */
+        //so it's better this way: ask if the object responds to this method ( no matter the class )
+        if([currentObject respondsToSelector:@selector(uppercaseString)]){
+            NSLog(@"The object is: %@",[currentObject uppercaseString]);
+        }else{
+            NSLog(@"The object doesn't respond to that.");
+        }
+    }
 }
 
 void dictionaryObject(){
@@ -502,7 +560,7 @@ void dictionaryObject(){
                                                 @"Queensland",@"QLD",
                                    nil];
     [mutableStates setObject:@"Tasmania" forKey:@"TA"];
-    NSLog(@"last element added %@", mutableStates[@"NT"]);
+//    NSLog(@"last element added %@", mutableStates[@"NT"]);
     
     //another way to initialise NSMutableDictionary
     NSDictionary *quicker = @{ @"NSW":@"New South Wales",
@@ -510,6 +568,282 @@ void dictionaryObject(){
                                @"QLD":@"Queensland"
                             };
     NSLog(@"last element %@", quicker[@"QLD"]);
+    //Find an element by using the Key
+    NSString* elementFound = [quicker objectForKey:@"NSW"];
+    NSLog(@"elementFound: %@ for Key NSW", elementFound);
+    
+    //Loop through a dictionary
+    for(id key in [quicker allKeys]){
+        NSLog(@"Loop Element: key: %@, value: %@", key, quicker[key]);
+    }
+     
+    
+}
+
+
+id transformToCollection(NSString * jsonString) {
+    NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    //IMPORTANT: The object that is returned back by JSONObjectWithData method will be either a dictionary or an array
+    //Therefore just use JSONObjectWithData and after check by using isKindOfClass
+    
+    NSError* error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+    if(jsonObject != nil && error == nil){ // is it a data dictionary?
+        return jsonObject;
+    }else{
+        if(error != nil){
+            NSLog(@"There was an error when trying to deserialize the json string: %@", error);
+            return nil;
+        }
+    }
+    return nil;
+}
+
+void jsonManipulation(){
+    /*
+     {
+       "employees": [
+         {
+           "id": "1",
+           "name": "James",
+           "age": 54
+         },
+         {
+           "id": "2",
+           "name": "Ward",
+           "age": 26
+         }
+       ]
+     }
+     */
+    
+    NSString* jsonString1 = @"{ \"employees\":[{\"id\": \"1\", \"name\":\"James\", \"age\": 54}, {\"id\": \"2\", \"name\":\"Ward\", \"age\": 26}]}";
+    
+    /* This Json will return an array when deserialized
+     [
+       {
+         "id": "1",
+         "name": "James",
+         "age": 54
+       },
+       {
+         "id": "2",
+         "name": "Ward",
+         "age": 26
+       }
+     ]
+     */
+//    NSString* jsonString1 = @"[{\"id\": \"1\", \"name\":\"James\", \"age\": 54}, {\"id\": \"2\", \"name\":\"Ward\", \"age\": 26}]";
+    id jsonObject = transformToCollection(jsonString1);
+    
+    if(jsonObject != nil){
+        if([jsonObject isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"The deserialized object is a Dictionary");
+            NSDictionary * deserializedDictionary = (NSDictionary *)jsonObject;
+            NSLog(@"deserializedDictionary: %@", deserializedDictionary);
+        }else if([jsonObject isKindOfClass:[NSArray class]]) {
+                NSLog(@"The deserialized object is an Array");
+                NSArray * deserializedArray = (NSArray*) jsonObject;
+                NSLog(@"Deserialized JSON Array = %@", deserializedArray);
+        }
+    }
+
+    /*
+     Now let's hava a look at how to find a specific element in a NSDictionary.
+     **/
+        
+    //run the example, then do the next example, :
+    /* This Json will return a Dictionary when deserialized
+     {
+       "cars": {
+         "Nissan": [
+           {
+             "model": "Sentra",
+             "doors": 4,
+             "price": 17699.99
+           },
+           {
+             "model": "Maxima",
+             "doors": 4,
+             "price": 18399.99
+           },
+           {
+             "model": "Skyline",
+             "doors": 2,
+             "price": 25400.00
+           }
+         ],
+         "Ford": [
+           {
+             "model": "Taurus",
+             "doors": 4,
+             "price": 38000.00
+           },
+           {
+             "model": "Escort",
+             "doors": 4,
+             "price": 34000.00
+           }
+         ]
+       }
+     } ...
+     */
+    
+    NSString* jsonString2 = @"{ \"cars\": { \"Nissan\": [{\"model\": \"Sentra\",\"doors\": 4,\"price\": 17699.99},{\"model\": \"Maxima\",\"doors\": 4,\"price\": 18399.99},{\"model\": \"Skyline\",\"doors\": 2,\"price\": 25400.00}],\"Ford\": [{\"model\": \"Taurus\",\"doors\": 4,\"price\": 38000.00},{\"model\": \"Escort\",\"doors\": 4,\"price\": 34000.00}],\"Chevrolet\": [{\"model\": \"Alero\",\"doors\": 4,\"price\": 15000.00},{\"model\": \"Aveo\",\"doors\": 4,\"price\": 13000.00}],\"Porsche\": [{\"model\": \"911 Carrera\",\"doors\": 2,\"price\": 240000.00},{\"model\": \"Cayenne\",\"doors\": 4,\"price\": 190000.00},{\"model\": \"Cayman\",\"doors\": 4,\"price\": 200000.00}],\"Jaguar\": [{\"model\": \"Daimler\",\"doors\": 4,\"price\": 250000.00},{\"model\": \"X-type Estate\",\"doors\": 4,\"price\": 245000.00}],\"Hyundai\": [{\"model\": \"Accent\",\"doors\": 4,\"price\": 10000.00},{\"model\": \"Elantra\",\"doors\": 4,\"price\": 13000.00},{\"model\": \"Altos\",\"doors\": 4,\"price\": 12999.99},{\"model\": \"Veloster\",\"doors\": 2,\"price\": 19000.00}],\"Hummer\": [{\"model\": \"H2\",\"doors\": 4,\"price\": 125000.00},{\"model\": \"H3\",\"doors\": 4,\"price\": 148000.00}],\"MINI\": [{\"model\": \"Cooper\",\"doors\": 2,\"price\": 48000.00},{\"model\": \"Cooper S\",\"doors\": 2,\"price\": 50000.00},{\"model\": \"Cooper D \",\"doors\": 2,\"price\": 54000.00}]}}";
+    
+    jsonObject = transformToCollection(jsonString2);
+    
+    if(jsonObject != nil){
+        if([jsonObject isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"The deserialized object is a Dictionary");
+            NSDictionary * deserializedDictionary = (NSDictionary *)jsonObject;
+            NSLog(@"deserializedDictionary: %@", deserializedDictionary);
+//            [deserializedDictionary valueForKey:@"cars"]//[deserializedDictionary valueForKey:@"cars"]
+        }
+    }
+    /**TODO
+         Display the Model & Price of the Jaguar cars
+     ****/
+    
+}
+
+
+void categories(){
+    //remember to import our new class header on top
+    NSString *message = @"The quick brown fox jumped over the lazy dog.";
+    NSLog(@"The result is: %@", [message convertWhitespace]);
+}
+
+void classExtensions(){
+    Account *acc1 = [[Account alloc]init];
+    [acc1 setAccountName:@"Greg"];
+    [acc1 setAccountNumber:1234465];
+    [acc1 deposit:[NSDecimalNumber decimalNumberWithString:@"200.00"]];
+    [acc1 withdraw:[NSDecimalNumber decimalNumberWithString:@"75.22"]];
+    //here is the problem, we are directly reaching to the state of this object balance and changing it
+    //we should not be able to do this, only the methods should be able to change that property.
+    //    acc1.balance = [NSDecimalNumber decimalNumberWithString:@"5999999.00"];
+    
+    NSLog(@"The current balance is: %@", [acc1 balance]);
+}
+
+void protocols(){
+    //REMEMBER: protocols are declared in the .h file enclosed between < >
+    //therefore Fraction.h will have the specified protocols it will implement
+    //The magic pretty much happens here:
+    Fraction *frac = [[Fraction alloc]initWitNumerator:3 denominator:10];
+    Complex *comp =[[Complex alloc]initWithReal:5 andImaginary:15];
+    id <Printing> printable;
+    
+    //We define our objects (which implement the interface) and a variable id that implements the interface.
+    //The reason this object is of type id is so we can implement multiple interfaces (id is a reserved object type in objective-c meaning any object).
+
+    //Then to switch implementations we just change implementations:
+    //printable = frac;
+    //printable = comp;
+    
+    //printing the fraction
+    printable = frac;
+    NSLog(@"The fraction is: %@", [printable print]);
+    //printing the complex number
+    printable = comp;
+    NSLog(@"The Complex is: %@", [printable print]);
+    /*
+     what for could a protocol be helpful?
+     We can create an array of objects, and put any type of object there that implements a protocol.
+     as all implement the same protocol
+     you can in a loop over the array, and call the method declared in the protocol and should work as expected.
+     
+    */
+}
+
+void fixingErrors(){
+    //Issue #1
+    /*
+    NSString myString = [NSString stringWithFormat:@"Here's the first problem!"];
+    NSLog(@"The string is %@", myString);
+     */
+    
+    //Issue #2
+    /*
+     int a = 5, b = 10;
+     if ( a == b ){
+     {
+         NSLog(@"Yes, they're equal")
+     }
+     */
+    
+    //Issue #3 - you need the #import statement for this to work (error: Use of undeclared identifier 'myObj')
+    /*
+    MyNewClass *myObj = [[MyNewClass alloc]init];
+    [myObj someMethod];
+    */
+    
+    //Issue #4 (first: use of undeclared identifier 'myObj', second: Implicit declaration of function 'NSlog' is invalid in .. fix: is NSLog capital L )
+    /*
+    NSlog(@"The new object is: %@", myObj);
+    */
+    
+    //Issue #5 (causes 4 different warnings, we are using single quotes, and these are chars, that's why the warning: character constant too long for its type
+    /*
+    NSLog(@'Hello, world!');
+    */
+    
+    //Issue #6
+    /*
+    NSString *newString = "This is a simple message";
+    NSLog("What's wrong with a simple message likeL %@", newString );
+    */
+    
+    //Issue #7
+    /*
+     int c = 5, d = 10;
+     if( c = d ){
+        NSLog(@"Yes, they're equal");
+     }
+    */
+    
+    //Issue #8
+    
+//     MyNewClass *mySecondObj = [[MyNewClass alloc]init];
+//     NSString *result = [mySecondObj someMethod];
+//     NSLog(@"The result is %@", result);
+    
+    
+    //Issue #9  it gives me a warning not an error, but if I run it, it will end crashing. (Incompatible pointer types initialising 'MyNewClass'
+    /*
+    MyNewClass *myThirdObj = [[NSString alloc]init];
+    NSLog(@"The object is %@", [myThirdObj someMethod]);
+    */
+    
+    //Watch out for these! These are warnings, the problem is: most warnings are not like this 3, unused variables, most warnings are
+    //significant logic errors that will make your program crash.
+    /*
+    NSString *mine = @"Test";
+    int foo = 55;
+    float bar = 5.5;
+    */
+}
+
+void exceptionHandling(){
+    //this won't give me any warnings as the today variable has been assigned to a dynamic type, so this could be a NSString which has the uppercaseString method
+    //but if you ran this you will get an uncaught exception: "unrecognised selector" and will crash.
+    // uncomment this two lines to see the error
+//    id today = [[NSDate alloc] init];
+//    [today uppercaseString];
+    // add a try catch block (the plus button) and place these lines of code inside
+    
+    /*
+    @try {
+        id today = [[NSDate alloc] init];
+        [today uppercaseString];
+    } @catch (NSException *exception) {
+        NSLog(@"The exception was: %@", exception);
+    } @finally {
+        NSLog(@"Finally will always be called.");
+    }
+     */
+    
 }
 
 void fastEnumeration(){
@@ -656,179 +990,4 @@ void archivingUnarchivingObjects(){
         //NO there isnt plist file - so create it
         createAndArchiveObjects(stringFilePath);
     }
-}
-
-void categories(){
-    //remember to import our new class header on top
-    NSString *message = @"The quick brown fox jumped over the lazy dog.";
-    NSLog(@"The result is: %@", [message convertWhitespace]);
-}
-
-void classExtensions(){
-    Account *acc1 = [[Account alloc]init];
-    [acc1 setAccountName:@"Greg"];
-    [acc1 setAccountNumber:1234465];
-    [acc1 deposit:[NSDecimalNumber decimalNumberWithString:@"200.00"]];
-    [acc1 withdraw:[NSDecimalNumber decimalNumberWithString:@"75.22"]];
-    //here is the problem, we are directly reaching to the state of this object balance and changing it
-    //we should not be able to do this, only the methods should be able to change that property.
-    //    acc1.balance = [NSDecimalNumber decimalNumberWithString:@"5999999.00"];
-    
-    NSLog(@"The current balance is: %@", [acc1 balance]);
-}
-
-
-NSMutableArray * createRandomObjects(){
-    NSMutableArray *bunchOfObjects = [[NSMutableArray alloc]init];
-    
-    for (int i=0;  i < 10; i++) {
-        int random = arc4random_uniform(100);
-        if(random % 2 == 0){
-            NSString *s = @"Exciting string object";
-            [bunchOfObjects addObject:s];
-        }else{
-            NSDate *d = [[NSDate alloc]init];
-            [bunchOfObjects addObject:d];
-        }
-    }
-    return bunchOfObjects;
-}
-
-void dynamicTyping(){
-    NSMutableArray *bunchOfObjects = createRandomObjects();
-    
-    for (id currentObject in bunchOfObjects) {
-        //This is fine, but what if we have many different classes, a big list of iskindOfClass
-        //will have to be listed
-        /*
-        if([currentObject isKindOfClass: [NSString class]]){
-            NSLog(@"The object is: %@",[currentObject uppercaseString]);
-        }
-         */
-        //so it's better this way: ask if the object responds to this method ( no matter the class )
-        if([currentObject respondsToSelector:@selector(uppercaseString)]){
-            NSLog(@"The object is: %@",[currentObject uppercaseString]);
-        }else{
-            NSLog(@"The object doesn't respond to that.");
-        }
-    }
-}
-
-void protocols(){
-    //REMEMBER: protocols are declared in the .h file enclosed between < >
-    //therefore Fraction.h will have the specified protocols it will implement
-    //The magic pretty much happens here:
-    Fraction *frac = [[Fraction alloc]initWitNumerator:3 denominator:10];
-    Complex *comp =[[Complex alloc]initWithReal:5 andImaginary:15];
-    id <Printing> printable;
-    
-    //We define our objects (which implement the interface) and a variable id that implements the interface.
-    //The reason this object is of type id is so we can implement multiple interfaces (id is a reserved object type in objective-c meaning any object).
-
-    //Then to switch implementations we just change implementations:
-    //printable = frac;
-    //printable = comp;
-    
-    //printing the fraction
-    printable = frac;
-    NSLog(@"The fraction is: %@", [printable print]);
-    //printing the complex number
-    printable = comp;
-    NSLog(@"The Complex is: %@", [printable print]);
-    /*
-     what for could a protocol be helpful?
-     We can create an array of objects, and put any type of object there that implements a protocol.
-     as all implement the same protocol
-     you can in a loop over the array, and call the method declared in the protocol and should work as expected.
-     
-    */
-}
-
-void fixingErrors(){
-    //Issue #1
-    /*
-    NSString myString = [NSString stringWithFormat:@"Here's the first problem!"];
-    NSLog(@"The string is %@", myString);
-     */
-    
-    //Issue #2
-    /*
-     int a = 5, b = 10;
-     if ( a == b ){
-     {
-         NSLog(@"Yes, they're equal")
-     }
-     */
-    
-    //Issue #3 - you need the #import statement for this to work (error: Use of undeclared identifier 'myObj')
-    /*
-    MyNewClass *myObj = [[MyNewClass alloc]init];
-    [myObj someMethod];
-    */
-    
-    //Issue #4 (first: use of undeclared identifier 'myObj', second: Implicit declaration of function 'NSlog' is invalid in .. fix: is NSLog capital L )
-    /*
-    NSlog(@"The new object is: %@", myObj);
-    */
-    
-    //Issue #5 (causes 4 different warnings, we are using single quotes, and these are chars, that's why the warning: character constant too long for its type
-    /*
-    NSLog(@'Hello, world!');
-    */
-    
-    //Issue #6
-    /*
-    NSString *newString = "This is a simple message";
-    NSLog("What's wrong with a simple message likeL %@", newString );
-    */
-    
-    //Issue #7
-    /*
-     int c = 5, d = 10;
-     if( c = d ){
-        NSLog(@"Yes, they're equal");
-     }
-    */
-    
-    //Issue #8
-    
-//     MyNewClass *mySecondObj = [[MyNewClass alloc]init];
-//     NSString *result = [mySecondObj someMethod];
-//     NSLog(@"The result is %@", result);
-    
-    
-    //Issue #9  it gives me a warning not an error, but if I run it, it will end crashing. (Incompatible pointer types initialising 'MyNewClass'
-    /*
-    MyNewClass *myThirdObj = [[NSString alloc]init];
-    NSLog(@"The object is %@", [myThirdObj someMethod]);
-    */
-    
-    //Watch out for these! These are warnings, the problem is: most warnings are not like this 3, unused variables, most warnings are
-    //significant logic errors that will make your program crash.
-    /*
-    NSString *mine = @"Test";
-    int foo = 55;
-    float bar = 5.5;
-    */
-}
-
-void exceptionHandling(){
-    //this won't give me any warnings as the today variable has been assigned to a dynamic type, so this could be a NSString which has the uppercaseString method
-    //but if you ran this you will get an uncaught exception: "unrecognised selector" and will crash.
-    // uncomment this two lines to see the error
-//    id today = [[NSDate alloc] init];
-//    [today uppercaseString];
-    // add a try catch block (the plus button) and place these lines of code inside
-    
-    /*
-    @try {
-        id today = [[NSDate alloc] init];
-        [today uppercaseString];
-    } @catch (NSException *exception) {
-        NSLog(@"The exception was: %@", exception);
-    } @finally {
-        NSLog(@"Finally will always be called.");
-    }
-     */
-    
 }
